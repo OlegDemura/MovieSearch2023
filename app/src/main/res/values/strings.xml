@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieSearch2023</string>
+    <string name="button_details">Детали</string>
 </resources>
