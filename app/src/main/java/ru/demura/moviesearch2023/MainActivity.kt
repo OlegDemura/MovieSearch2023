@@ -3,12 +3,10 @@ package ru.demura.moviesearch2023
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.demura.moviesearch2023.repository.Repository
 
@@ -48,10 +46,10 @@ class MainActivity : AppCompatActivity() {
         description1.text = Repository.filmList[0].description
         imageView1.setImageResource(Repository.filmList[0].image)
         button1.setOnClickListener {
-            val randomIntent = Intent(this, DetailsActivity::class.java)
+            val detailsActivityIntent = Intent(this, DetailsActivity::class.java)
             name1.setTextColor(Color.RED)
-            randomIntent.putExtra(EXTRA_FILM, Repository.filmList[0])
-            startActivity(randomIntent)
+            detailsActivityIntent.putExtra(EXTRA_FILM, 0)
+            startActivityForResult(detailsActivityIntent, 1)
         }
 
         val imageView2: ImageView = findViewById(R.id.imageView2)
@@ -62,10 +60,10 @@ class MainActivity : AppCompatActivity() {
         description2.text = Repository.filmList[1].description
         imageView2.setImageResource(Repository.filmList[1].image)
         button2.setOnClickListener {
-            val randomIntent = Intent(this, DetailsActivity::class.java)
+            val detailsActivityIntent = Intent(this, DetailsActivity::class.java)
             name2.setTextColor(Color.RED)
-            randomIntent.putExtra(EXTRA_FILM, Repository.filmList[1])
-            startActivity(randomIntent)
+            detailsActivityIntent.putExtra(EXTRA_FILM, 1)
+            startActivityForResult(detailsActivityIntent, 1)
         }
 
         val imageView3: ImageView = findViewById(R.id.imageView3)
@@ -76,10 +74,10 @@ class MainActivity : AppCompatActivity() {
         description3.text = Repository.filmList[2].description
         imageView3.setImageResource(Repository.filmList[2].image)
         button3.setOnClickListener {
-            val randomIntent = Intent(this, DetailsActivity::class.java)
+            val detailsActivityIntent = Intent(this, DetailsActivity::class.java)
             name3.setTextColor(Color.RED)
-            randomIntent.putExtra(EXTRA_FILM, Repository.filmList[2])
-            startActivity(randomIntent)
+            detailsActivityIntent.putExtra(EXTRA_FILM, 2)
+            startActivityForResult(detailsActivityIntent, 1)
         }
 
         val imageView4: ImageView = findViewById(R.id.imageView4)
@@ -90,10 +88,10 @@ class MainActivity : AppCompatActivity() {
         description4.text = Repository.filmList[3].description
         imageView4.setImageResource(Repository.filmList[3].image)
         button4.setOnClickListener {
-            val randomIntent = Intent(this, DetailsActivity::class.java)
+            val detailsActivityIntent = Intent(this, DetailsActivity::class.java)
             name4.setTextColor(Color.RED)
-            randomIntent.putExtra(EXTRA_FILM, Repository.filmList[3])
-            startActivity(randomIntent)
+            detailsActivityIntent.putExtra(EXTRA_FILM, 3)
+            startActivityForResult(detailsActivityIntent, 1)
         }
 
         val imageView5: ImageView = findViewById(R.id.imageView5)
@@ -104,10 +102,10 @@ class MainActivity : AppCompatActivity() {
         description5.text = Repository.filmList[4].description
         imageView5.setImageResource(Repository.filmList[4].image)
         button5.setOnClickListener {
-            val randomIntent = Intent(this, DetailsActivity::class.java)
+            val detailsActivityIntent = Intent(this, DetailsActivity::class.java)
             name5.setTextColor(Color.RED)
-            randomIntent.putExtra(EXTRA_FILM, Repository.filmList[4])
-            startActivity(randomIntent)
+            detailsActivityIntent.putExtra(EXTRA_FILM, 4)
+            startActivityForResult(detailsActivityIntent, 1)
         }
 
         val imageView6: ImageView = findViewById(R.id.imageView6)
@@ -118,10 +116,10 @@ class MainActivity : AppCompatActivity() {
         description6.text = Repository.filmList[5].description
         imageView6.setImageResource(Repository.filmList[5].image)
         button6.setOnClickListener {
-            val randomIntent = Intent(this, DetailsActivity::class.java)
+            val detailsActivityIntent = Intent(this, DetailsActivity::class.java)
             name6.setTextColor(Color.RED)
-            randomIntent.putExtra(EXTRA_FILM, Repository.filmList[5])
-            startActivity(randomIntent)
+            detailsActivityIntent.putExtra(EXTRA_FILM, 5)
+            startActivityForResult(detailsActivityIntent, 1)
         }
     }
 
@@ -145,5 +143,16 @@ class MainActivity : AppCompatActivity() {
         name4.setTextColor(savedInstanceState.getInt(NAME4))
         name5.setTextColor(savedInstanceState.getInt(NAME5))
         name6.setTextColor(savedInstanceState.getInt(NAME6))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Log.i("RESULT_FROM_DETAILS_ACTIVITY", data?.getBooleanExtra(DetailsActivity.RESULT_FAVORITE, false).toString())
+                Log.i("RESULT_FROM_DETAILS_ACTIVITY", data?.getStringExtra(DetailsActivity.RESULT_COMMENT).toString())
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }
