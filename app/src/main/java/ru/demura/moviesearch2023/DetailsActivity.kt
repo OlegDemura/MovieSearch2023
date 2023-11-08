@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import ru.demura.moviesearch2023.MainActivity.Companion.EXTRA_FILM
 import ru.demura.moviesearch2023.repository.Repository
 
@@ -64,9 +65,9 @@ class DetailsActivity : AppCompatActivity() {
                 film.like = isChecked
                 putExtra(RESULT_FAVORITE, isChecked)
             }
-            comment.addTextChangedListener {
-                film.comments = it.toString()
-                putExtra(RESULT_COMMENT, it.toString())
+            comment.doOnTextChanged { text, start, before, count ->
+                film.comments = text.toString()
+                putExtra(RESULT_COMMENT, text.toString())
             }
         }
         setResult(RESULT_OK, result)
