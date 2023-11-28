@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Search 2023</string>
+    <string name="button_details">Details</string>
+    <string name="button_invite_a_friend">Invite a friend</string>
+    <string name="like">Like</string>
+</resources>
