@@ -21,8 +21,8 @@ import ru.demura.moviesearch2023.repository.Repository
 class DetailsActivity : AppCompatActivity() {
 
     companion object {
-        val RESULT_FAVORITE = "favorite"
-        val RESULT_COMMENT = "comment"
+        const val RESULT_FAVORITE = "favorite"
+        const val RESULT_COMMENT = "comment"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class DetailsActivity : AppCompatActivity() {
                 film.like = isChecked
                 putExtra(RESULT_FAVORITE, isChecked)
             }
-            comment.doOnTextChanged { text, start, before, count ->
+            comment.doOnTextChanged { text, _, _, _ ->
                 film.comments = text.toString()
                 putExtra(RESULT_COMMENT, text.toString())
             }
