@@ -55,6 +55,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/nameFilm"
                 tools:text="@tools:sample/lorem/random" />
 
+            <ImageView
+                android:id="@+id/imageFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" >
+
+            </ImageView>
+
             <Button
                 android:id="@+id/buttonDetail"
                 android:layout_width="wrap_content"

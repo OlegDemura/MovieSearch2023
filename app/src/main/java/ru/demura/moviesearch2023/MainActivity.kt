@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ru.demura.moviesearch2023.model.Film
 import ru.demura.moviesearch2023.repository.Repository
 
 class MainActivity : AppCompatActivity() {
@@ -31,11 +32,30 @@ class MainActivity : AppCompatActivity() {
 
         val data = Repository.filmList
 
-        val adapter = FilmAdapter(data, this)
+        val favorList = Repository.favorList
 
-        recyclerView.adapter = adapter
+        recyclerView.adapter = FilmAdapter(data, object : FilmAdapter.FilmClickListener {
+            override fun onDetailClick(position: Int) {
+                val detailsActivityIntent = Intent(this@MainActivity, DetailsActivity::class.java)
+                detailsActivityIntent.putExtra(EXTRA_FILM, position)
+                startActivityForResult(detailsActivityIntent, REQUEST_CODE)
+                recyclerView.adapter?.notifyItemChanged(position) //Меняет состояние после возврата на предыдущее окно.
+            }
 
-        //TODO доделать сохранение состояния при перевороте экрана
+            override fun onFavoriteClick(filmItem: Film, position: Int) {
+                //Сделать передачу данных в список любимых на нажатие сердечка
+                if (!favorList.contains(filmItem.id)) {
+                    favorList.add(filmItem.id)
+                } else {
+                    favorList.remove(filmItem.id)
+                }
+                recyclerView.adapter?.notifyItemChanged(position)
+            }
+
+            override fun checkFavoriteList(filmItem: Film): Boolean {
+                return favorList.contains(filmItem.id)
+            }
+        })
     }
 
 
