@@ -1,11 +1,12 @@
 package ru.demura.moviesearch2023
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.demura.moviesearch2023.model.Film
@@ -25,12 +26,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        createContext()
+        Log.d("requestedOrientation", resources.configuration.orientation.toString())
+
+        if (resources.configuration.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            createContext(recyclerView)
+        } else {
+            recyclerView.layoutManager = GridLayoutManager(this,2)
+            createContext(recyclerView)
+        }
     }
 
-    private fun createContext() {
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
+    private fun createContext(recyclerView: RecyclerView) {
 
         val data = Repository.filmList
 
@@ -64,6 +71,10 @@ class MainActivity : AppCompatActivity() {
             val favoriteActivityIntent = Intent(this@MainActivity, FavoriteListActivity::class.java)
             startActivity(favoriteActivityIntent)
         }
+    }
+
+    private fun createContextLandscape() {
+
     }
 
 

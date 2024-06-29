@@ -1,19 +1,13 @@
 package ru.demura.moviesearch2023
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
-import androidx.activity.addCallback
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.demura.moviesearch2023.R
 import ru.demura.moviesearch2023.model.Film
 import ru.demura.moviesearch2023.repository.Repository
 
@@ -25,16 +19,19 @@ class FavoriteListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         setContentView(R.layout.activity_favorite_list)
-        createContext()
+        if (resources.configuration.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            createContext(recyclerView)
+        } else {
+            recyclerView.layoutManager = GridLayoutManager(this,2)
+            createContext(recyclerView)
+        }
     }
 
 
 
-    fun createContext(){
-        Log.d("createContext1", "one")
-        recyclerView.layoutManager = LinearLayoutManager(this)
+    fun createContext(recyclerView: RecyclerView){
 
-        Log.d("createContext1", "two")
         val favorList = Repository.favorList
 
         recyclerView.adapter = FilmAdapter(favorList, object : FilmAdapter.FilmClickListener {
