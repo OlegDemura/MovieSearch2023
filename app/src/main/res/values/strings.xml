@@ -3,4 +3,5 @@
     <string name="button_details">Детали</string>
     <string name="button_invite_a_friend">Пригласить друга</string>
     <string name="like">Нравится</string>
+    <string name="favorite">Избранное</string>
 </resources>

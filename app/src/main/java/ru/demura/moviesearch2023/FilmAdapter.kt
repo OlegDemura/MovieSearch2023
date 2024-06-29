@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.demura.moviesearch2023.model.Film
 
-class FilmAdapter(private val mList: List<Film>, private val listener: FilmClickListener) :
+class FilmAdapter(private val mList: MutableList<Film>, private val listener: FilmClickListener) :
     RecyclerView.Adapter<FilmViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val view = LayoutInflater.from(parent.context)

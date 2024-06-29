@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ru.demura.moviesearch2023"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "ru.demura.moviesearch2023"

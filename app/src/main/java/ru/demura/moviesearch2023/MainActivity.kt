@@ -3,6 +3,8 @@ package ru.demura.moviesearch2023
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,18 +46,24 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFavoriteClick(filmItem: Film, position: Int) {
                 //Сделать передачу данных в список любимых на нажатие сердечка
-                if (!favorList.contains(filmItem.id)) {
-                    favorList.add(filmItem.id)
+                if (!favorList.contains(filmItem)) {
+                    favorList.add(filmItem)
                 } else {
-                    favorList.remove(filmItem.id)
+                    favorList.remove(filmItem)
                 }
                 recyclerView.adapter?.notifyItemChanged(position)
             }
 
             override fun checkFavoriteList(filmItem: Film): Boolean {
-                return favorList.contains(filmItem.id)
+                return favorList.contains(filmItem)
             }
         })
+
+        val onFavoriteLink: TextView = findViewById(R.id.onFavoriteLink)
+        onFavoriteLink.setOnClickListener {
+            val favoriteActivityIntent = Intent(this@MainActivity, FavoriteListActivity::class.java)
+            startActivity(favoriteActivityIntent)
+        }
     }
 
 
