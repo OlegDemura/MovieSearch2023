@@ -5,7 +5,12 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +40,24 @@ class MainActivity : AppCompatActivity() {
             recyclerView.layoutManager = GridLayoutManager(this,2)
             createContext(recyclerView)
         }
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                Log.d("dialog", "handleOnBackPressed")
+                val builder = AlertDialog.Builder(this@MainActivity)
+                builder.setTitle("Вы действительно хотите выйти?")
+                    .setPositiveButton("Да") { dialog, _ ->
+                        dialog.dismiss()
+                        finish()
+                    }
+                    .setNegativeButton("Нет") { dialog, _ ->
+                        dialog.cancel()
+                    }
+                builder.create().show()
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     private fun createContext(recyclerView: RecyclerView) {
@@ -72,11 +95,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(favoriteActivityIntent)
         }
     }
-
-    private fun createContextLandscape() {
-
-    }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(ARGS_SCROLL_STATE, recyclerView.layoutManager?.onSaveInstanceState())
